@@ -8,25 +8,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Haptics : MonoBehaviour
 {
-   
+   // Haptic feedbackの設定パラメーターをInspectorから編集可能にする
    [Header("Trigger haptics parameters")]
    [SerializeField] float triggerAmplitude = 0.95f; // 振幅 (0.0〜1.0)
    [SerializeField] float triggerDuration = 0.2f; // 持続時間(秒) ()
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-   // Activate Action(トリガー押下)発生時に実行する処理
+   // Activateイベント（通常はトリガーを引いた時など）が発生した際に実行されるメソッド
     public void pullTrigger(ActivateEventArgs arg)
     {
        // イベント発生元のXRBaseControllerに振動させる。

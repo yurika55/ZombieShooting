@@ -4,22 +4,13 @@ using UnityEngine;
 
 public class AudioPlayButton : MonoBehaviour
 {
-    public GameObject audioObject;
+    public GameObject audioObject; // 音声を再生するためのオーディオソースを持つGameObjectを指定する変数
 
-    // Start is called before the first frame update
-    void Start()
+    // ボタンがクリックされた時に呼び出されるメソッド
+    public void AudioPlay()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-     public void AudioPlay()
-    {
+        // 指定されたaudioObjectにアタッチされたAudioSourceコンポーネントを取得し、再生する
         audioObject.GetComponent<AudioSource>().Play();
     }
 }
+

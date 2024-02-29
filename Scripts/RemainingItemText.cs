@@ -6,31 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class RemainingItemText : MonoBehaviour
 {
-    public float gameClearTime = 1.0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float gameClearTime = 1.0f;// ゲームクリアに移行するまでの待機時間
 
     // Update is called once per frame
     void Update()
     {
+        // "Zombie"タグが付いたオブジェクトの数をカウント
         int RemainingItemNumber = GameObject.FindGameObjectsWithTag("Zombie").Length;
 
+        // 残りのアイテム数が0になったらゲームクリア処理を行う
         if(RemainingItemNumber == 0)
         {
-            //ゲームクリア場面に移動する
+            // gameClearTime秒後にGameclearメソッドを呼び出す
             Invoke("Gameclear", gameClearTime);
         }
-        // else
-        // {
-        //     gameObject.GetComponent<UnityEngine.UI.Text>().text = $"残り{RemainingItemNumber}体";
-        // }
 
     }
 
+ // ゲームクリアのシーンに移行するメソッド
     void Gameclear()
     {
          SceneManager.LoadScene("GameClear");

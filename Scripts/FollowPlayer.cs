@@ -5,28 +5,28 @@ using UnityEngine.AI;
 
 public class FollowPlayer : MonoBehaviour
 {
-    UnityEngine.AI.NavMeshAgent agent;
-    GameObject player;
-    Zombi zombi;
+    UnityEngine.AI.NavMeshAgent agent; // NavMeshAgentコンポーネントを格納する変数
+    GameObject player; // プレイヤーオブジェクトを格納する変数
+    Zombi zombi; // Zombiスクリプトを格納する変数
 
-    // Start is called before the first frame update
     void Start()
     {
-       agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-       player = GameObject.FindWithTag("Player");
-        zombi = GetComponent<Zombi>();
+       agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); // NavMeshAgentコンポーネントを取得してagent変数に代入
+       player = GameObject.FindWithTag("Player"); // "Player"タグが付いたオブジェクトを検索してplayer変数に代入
+        zombi = GetComponent<Zombi>(); // Zombiスクリプトを取得してzombi変数に代入
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // もしゾンビが歩ける状態ならば
         if(zombi.CanWalk)
         {
-            //ゾンビがプレイヤーの方に向かっていく
+            // ゾンビの目標地点をプレイヤーの位置に設定する
             agent.destination = player.transform.position;
         }
-        else
+        else // もしゾンビが歩けない状態ならば
         {
+            // NavMeshAgentを停止する
             agent.isStopped = true;
         }
     }

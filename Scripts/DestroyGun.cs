@@ -4,18 +4,8 @@ using UnityEngine;
 
 public class DestroyGun : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // 他のColliderがこのColliderに侵入したときに呼び出されるメソッド
     void OnTriggerEnter(Collider other){
  
         // もしもぶつかってきたオブジェクトのタグに「Bullet」という名前がついていたら

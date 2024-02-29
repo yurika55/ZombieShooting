@@ -5,21 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class Zombi : MonoBehaviour
 {
-    Animator animator;
-    public float destroyTime = 1.0f;
-    GameObject player;
-    public float rangedistance = 0.5f;
-    public float gameoverTime = 1.0f;
+    Animator animator; // ゾンビのアニメーターコンポーネント
+    public float destroyTime = 1.0f; // ゾンビが倒れてから消えるまでの時間
+    GameObject player; // プレイヤーオブジェクト
+    public float rangedistance = 0.5f; // ゾンビが攻撃を開始するプレイヤーとの距離
+    public float gameoverTime = 1.0f; // 攻撃後、ゲームオーバー画面に遷移するまでの時間
 
-    public bool CanWalk { get; private set; }
+    public bool CanWalk { get; private set; } // ゾンビが歩けるかどうか
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        player = GameObject.FindWithTag("Player");
+        animator = GetComponent<Animator>(); // アニメーターコンポーネントを取得
+        player = GameObject.FindWithTag("Player"); // プレイヤーオブジェクトを検索して取得
 
-        CanWalk = true;
+        CanWalk = true; // 初期状態ではゾンビは歩ける
     }
 
     // Update is called once per frame
@@ -27,12 +27,11 @@ public class Zombi : MonoBehaviour
     {
         // プレイヤーの位置
         var playerPosition = player.transform.position;
-        //ゾンビの位置
+        // ゾンビの位置
         var zombiPosition = transform.position;
-        //ゾンビとプレイヤーがどれだけ離れているか
-        //var offset = Mathf.Abs(playerPosition.x - zombiPosition.x);
+        // ゾンビとプレイヤーがどれだけ離れているかを計算
         var offset = Vector3.Distance(playerPosition, zombiPosition);
-        // プレイヤーとゾンビの距離が近くなったら攻撃
+        // プレイヤーとゾンビの距離が攻撃範囲内に入ったら攻撃
         if(offset <= rangedistance)
         {
             Attack();
@@ -46,44 +45,41 @@ public class Zombi : MonoBehaviour
             // 弾を消す
             Destroy(collision.gameObject);
             
-            //ゾンビが倒れる
+            // ゾンビが倒れる処理
             FallDown();
-
         }
     }
 
-     void Attack()
+    void Attack()
     {
-        // 攻撃するアニメーションを流す
+        // 攻撃するアニメーションを実行
         animator.SetTrigger("Attack");
 
-        //ゲームオーバー場面に移動する
+        // ゲームオーバー画面に移行する
         Invoke("Gameover", gameoverTime);
-    
     }
 
     void FallDown()
     {
-        //動きを止める
+        // 動きを止める（歩けなくする）
         CanWalk = false;
 
-        //倒れるアニメーションを流す
+        // 倒れるアニメーションを実行
         animator.SetTrigger("FallDown");
 
-        //ゾンビを消す
+        // ゾンビを指定時間後に消去
         Invoke("DestroyZombi", destroyTime);
-
     }
 
-    
-     void Gameover()
+    void Gameover()
     {
-         SceneManager.LoadScene("GameOver");
+        // ゲームオーバー画面に遷移
+        SceneManager.LoadScene("GameOver");
     }
 
     void DestroyZombi()
     {
+        // オブジェクトを破棄してゾンビを消す
         Destroy(gameObject);
     }
-
 }
